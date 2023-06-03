@@ -10,7 +10,9 @@ const ChatInput = ({ onSubmitQuestion }) => {
   }
 
   return (
+    
     <form onSubmit={handleSubmit} className="flex">
+        
       <input
         type="text"
         value={question}
