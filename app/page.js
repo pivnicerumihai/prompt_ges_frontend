@@ -10,16 +10,14 @@ const IndexPage = () => {
   const [loading, setLoading] = useState(false);
 
   const handleNewQuestion = async (question) => {
-    // Append user's question to chat history right away
     setChatHistory(prevHistory => [...prevHistory, { sender: 'user', message: question }]);
-    setLoading(true); // Set loading state to true when API call starts
+    setLoading(true); 
 
     const apiResponse = await axios.post('http://localhost:3001/getResponse', {
       question: question
     })
 
-    setLoading(false); // Set loading state to false when API call ends
-    // Then append API's response to chat history
+    setLoading(false); 
     setChatHistory(prevHistory => [...prevHistory, { sender: 'api', message: apiResponse.data }]);
   };
 
