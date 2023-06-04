@@ -10,7 +10,7 @@ const ChatHistory = ({ chatHistory, loading }) => (
         className={`flex ${item.sender === 'user' ? 'justify-end' : 'justify-start'}`}
       >
         {item.sender === 'api' && (
-          <div className="overflow-hidden rounded-2xl w-12 h-10 mx-2">
+          <div className="overflow-hidden rounded-2xl w-12 h-12 mx-2">
             <Image src="/images/bot.png" width={70} height={70} />
           </div>
         )}
