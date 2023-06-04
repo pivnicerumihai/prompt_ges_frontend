@@ -1,7 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
+import LoadingDots from './LoadingDots';
 
-const ChatHistory = ({ chatHistory }) => (
+const ChatHistory = ({ chatHistory, loading }) => (
   <div className="overflow-y-auto h-5/6 border-2 border-gray-200 p-4 mb-4">
     {chatHistory.map((item, idx) => (
       <div
@@ -9,7 +10,7 @@ const ChatHistory = ({ chatHistory }) => (
         className={`flex ${item.sender === 'user' ? 'justify-end' : 'justify-start'}`}
       >
         {item.sender === 'api' && (
-          <div className="overflow-hidden rounded-2xl w-12 h-12 mx-2">
+          <div className="overflow-hidden rounded-2xl w-12 h-10 mx-2">
             <Image src="/images/bot.png" width={70} height={70} />
           </div>
         )}
@@ -32,6 +33,14 @@ const ChatHistory = ({ chatHistory }) => (
         )}
       </div>
     ))}
+    {loading && (
+      <div className="flex justify-start items-center space-x-2">
+        <div className="overflow-hidden rounded-2xl w-12 h-10 mx-2">
+          <Image src="/images/bot.png" width={70} height={70} />
+        </div>
+        <LoadingDots />
+      </div>
+    )}
   </div>
 );
 

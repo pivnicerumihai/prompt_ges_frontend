@@ -3,26 +3,36 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import ChatHistory from '../components/ChatHistory';
 import ChatInput from '../components/ChatInput';
+import Image from 'next/image'
 
 const IndexPage = () => {
   const [chatHistory, setChatHistory] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const handleNewQuestion = async (question) => {
     // Append user's question to chat history right away
     setChatHistory(prevHistory => [...prevHistory, { sender: 'user', message: question }]);
+    setLoading(true); // Set loading state to true when API call starts
 
-   const apiResponse =  await axios.post('http://localhost:3001/getResponse', {
+    const apiResponse = await axios.post('http://localhost:3001/getResponse', {
       question: question
     })
-//  const apiResponse = {data: 'test'}
+
+    setLoading(false); // Set loading state to false when API call ends
     // Then append API's response to chat history
     setChatHistory(prevHistory => [...prevHistory, { sender: 'api', message: apiResponse.data }]);
   };
 
   return (
-    <div className="container mx-auto py-10 px-4">
-      <h1 className="text-3xl mb-4">Chat with ThermoMate</h1>
-      <ChatHistory chatHistory={chatHistory} />
+    <div className="container h-full mx-auto py-10 px-4">
+      <div className="flex flex-row items-center">
+        <div className="rounded-lg h-18 overflow-hidden mb-2">
+      <Image src='/images/bot.png' width={100} height={100}/>
+      </div>
+      <h1 className="text-3xl mx-2">Chat with ThermoMate</h1>
+    
+      </div>
+      <ChatHistory chatHistory={chatHistory} loading={loading} />
       <ChatInput onSubmitQuestion={handleNewQuestion} />
     </div>
   );
